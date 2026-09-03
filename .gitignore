@@ -1,0 +1,35 @@
+### macOS ###
+.DS_Store
+**/.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+### Base de datos H2 en modo archivo ###
+*.mv.db
+*.trace.db
+*.lock.db
+/data/
+
+### Configuración local y secretos — NUNCA se versionan ###
+.env
+.env.*
+application-local.properties
+application-local.yml
+application-secrets.properties
+*.jks
+*.p12
+*.pem
+
+### Logs y volcados de la JVM ###
+*.log
+logs/
+hs_err_pid*
+replay_pid*
+.attach_pid*
+
+### Frontend React (desde la Guía 14) ###
+node_modules/
+**/dist/
+.vite/
+npm-debug.log*
