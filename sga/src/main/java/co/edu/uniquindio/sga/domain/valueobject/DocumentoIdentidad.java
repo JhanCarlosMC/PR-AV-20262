@@ -2,12 +2,15 @@ package co.edu.uniquindio.sga.domain.valueobject;
 
 import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
-public record DocumentoIdentidad(String numero) {
+public record DocumentoIdentidad(String valor) {
 
-    public DocumentoIdentidad{
-        if (numero == null || numero.isBlank() || numero.isEmpty()){
-            throw new ReglaDominioException("El documento de identidad es algo obligatorio, y no puede estar vacio.");
+    public DocumentoIdentidad {
+        if (valor == null || valor.isBlank()) {
+            throw new ReglaDominioException("El documento de identidad es obligatorio.");
         }
-        numero = numero.trim();
+        valor = valor.trim();
+        if (!valor.chars().allMatch(Character::isLetterOrDigit)) {
+            throw new ReglaDominioException("El documento de identidad solo admite caracteres alfanuméricos.");
+        }
     }
 }

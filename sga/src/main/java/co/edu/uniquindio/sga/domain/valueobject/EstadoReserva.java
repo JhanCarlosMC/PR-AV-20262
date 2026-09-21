@@ -1,30 +1,34 @@
 package co.edu.uniquindio.sga.domain.valueobject;
 
 public enum EstadoReserva {
-    PENDIENTE(true),
-    CONFIRMADA(true),
-    EN_CURSO(true),
-    FINALIZADA(false),
-    CANCELADA(false),
-    NO_SHOW(false);
+    PENDIENTE,
+    CONFIRMADA,
+    EN_CURSO,
+    FINALIZADA,
+    CANCELADA,
+    NO_SHOW;
 
-    private final boolean activa;
-
-    EstadoReserva(boolean activa) {
-        this.activa = activa;
+    /** RN-01, RN-12: activas son PENDIENTE, CONFIRMADA o EN_CURSO. */
+    public boolean esActiva() {
+        return this == PENDIENTE || this == CONFIRMADA || this == EN_CURSO;
     }
 
-    //Consulta estado activo PENDIENTE CONFIRMADA EN_CURSO
-    public boolean esActiva(){
-        return activa;
+    public boolean esTerminal() {
+        return this == FINALIZADA || this == CANCELADA || this == NO_SHOW;
     }
 
-    //Consultado estado terminal FINALIZADA CANCELADA NO_SHOW
-    public boolean esTerminal(){
-        return !activa;
-    }
-
-    public boolean retieneDisponibilidad(){
-        return activa;
+    /** RN-08: la reserva solo transita entre los estados permitidos; toda transición inválida se rechaza. */
+    public boolean puedeTransitarA(EstadoReserva destino) {
+        if (this == PENDIENTE) {
+            return destino == CONFIRMADA || destino == CANCELADA;
+        }
+        if (this == CONFIRMADA) {
+            return destino == EN_CURSO || destino == CANCELADA || destino == NO_SHOW;
+        }
+        if (this == EN_CURSO) {
+            return destino == FINALIZADA;
+        }
+        // FINALIZADA, CANCELADA y NO_SHOW son estados terminales: no admiten ninguna transición
+        return false;
     }
 }
