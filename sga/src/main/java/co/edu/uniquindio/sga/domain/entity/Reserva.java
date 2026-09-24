@@ -148,12 +148,16 @@ public class Reserva {
         this.horaEstimadaLlegada = hora;
     }
 
-    public void confirmar(LocalDate fechaActual) {
-        // RN-09: no se confirma sin hora estimada de llegada
-        if (horaEstimadaLlegada == null) {
-            throw new ReglaDominioException("No se puede confirmar la reserva sin hora estimada de llegada.");
+    public void confirmar() {
+        if (this.estado != EstadoReserva.PENDIENTE) {
+            throw new ReglaDominioException(
+                    "Solo una reserva PENDIENTE puede confirmarse");                      // RN-08
         }
-        transitarA(EstadoReserva.CONFIRMADA);
+        if (this.horaEstimadaLlegada == null) {
+            throw new ReglaDominioException(
+                    "La reserva debe registrar hora estimada de llegada para confirmarse"); // RN-09
+        }
+        this.estado = EstadoReserva.CONFIRMADA;
     }
 
     // RN-08 (transición) y RN-12 (al dejar de estar activa libera sus noches de inmediato,

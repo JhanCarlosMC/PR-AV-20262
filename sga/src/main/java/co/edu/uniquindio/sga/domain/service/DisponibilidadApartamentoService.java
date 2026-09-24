@@ -2,7 +2,7 @@ package co.edu.uniquindio.sga.domain.service;
 
 import co.edu.uniquindio.sga.domain.entity.Bloqueo;
 import co.edu.uniquindio.sga.domain.entity.Reserva;
-import co.edu.uniquindio.sga.domain.exception.ApartamentoNoDisponibleException;
+import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 import co.edu.uniquindio.sga.domain.repository.BloqueoRepository;
 import co.edu.uniquindio.sga.domain.repository.ReservaRepository;
 import co.edu.uniquindio.sga.domain.valueobject.Estancia;
@@ -60,7 +60,7 @@ public class DisponibilidadApartamentoService {
 
     public void verificarDisponibilidad(IdentificacionApartamento apartamento, Estancia estancia, TiempoPreparacion preparacion) {
         if (!estaDisponible(apartamento, estancia, preparacion)) {
-            throw new ApartamentoNoDisponibleException(
+            throw new ReglaDominioException(
                     "El apartamento no está disponible para la estancia solicitada.");
         }
     }
