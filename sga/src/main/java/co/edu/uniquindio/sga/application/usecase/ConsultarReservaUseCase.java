@@ -5,22 +5,16 @@ import co.edu.uniquindio.sga.domain.entity.Reserva;
 import co.edu.uniquindio.sga.domain.repository.ReservaRepository;
 import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 
-public class ConfirmarReservaUseCase {
+public class ConsultarReservaUseCase {
 
     private final ReservaRepository reservaRepository;
 
-    public ConfirmarReservaUseCase(ReservaRepository reservaRepository) {
+    public ConsultarReservaUseCase(ReservaRepository reservaRepository) {
         this.reservaRepository = reservaRepository;
     }
 
-    // Devuelve la reserva para que la API responda con su detalle actualizado (Guía 07)
-    public Reserva ejecutar(CodigoReserva codigo){
-        Reserva reserva = reservaRepository.obtenerPorCodigo(codigo)
+    public Reserva ejecutar(CodigoReserva codigo) {
+        return reservaRepository.obtenerPorCodigo(codigo)
                 .orElseThrow(() -> new ReservaNoEncontradaException(codigo));
-
-        reserva.confirmar();
-        reservaRepository.guardar(reserva);
-        return reserva;
     }
-
 }

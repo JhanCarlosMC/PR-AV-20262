@@ -3,6 +3,7 @@ package co.edu.uniquindio.sga.infraestructure.persistence.inmemory;
 import co.edu.uniquindio.sga.domain.entity.Reserva;
 import co.edu.uniquindio.sga.domain.repository.ReservaRepository;
 import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
+import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 import co.edu.uniquindio.sga.domain.valueobject.IdentificacionApartamento;
 import co.edu.uniquindio.sga.domain.valueobject.Periodo;
 
@@ -26,6 +27,14 @@ public class ReservaRepositoryInMemory implements ReservaRepository {
     @Override
     public Optional<Reserva> obtenerPorCodigo(CodigoReserva codigo) {
         return Optional.ofNullable(reservas.get(codigo));
+    }
+
+    @Override
+    public List<Reserva> buscarPorEstado(EstadoReserva estado) {
+        return reservas.values()
+                .stream()
+                .filter(reserva -> reserva.getEstado() == estado)
+                .toList();
     }
 
     @Override

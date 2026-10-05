@@ -51,6 +51,13 @@ public class Apartamento {
         return totalOcupantes <= capacidad;
     }
 
+    /** 7.5 condición 3: solo un apartamento activo admite reservas nuevas. */
+    public void verificarQueAceptaReservas() {
+        if (!activo) {
+            throw new ReglaDominioException("El apartamento no está activo y no admite reservas.");
+        }
+    }
+
     /** RN-11: solo puede recibir un grupo si está activo y en estado operativo PREPARADO. */
     public boolean puedeRecibirGrupo() {
         return activo && estadoOperativo.permiteRegistro();

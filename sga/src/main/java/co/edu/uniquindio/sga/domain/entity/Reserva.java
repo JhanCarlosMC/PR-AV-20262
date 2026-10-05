@@ -7,12 +7,14 @@ import co.edu.uniquindio.sga.domain.valueobject.Dinero;
 import co.edu.uniquindio.sga.domain.valueobject.Estancia;
 import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 import co.edu.uniquindio.sga.domain.valueobject.HoraEstimadaLlegada;
+import co.edu.uniquindio.sga.domain.valueobject.HoraLimiteNoShow;
 import co.edu.uniquindio.sga.domain.valueobject.IdentificacionApartamento;
 import co.edu.uniquindio.sga.domain.valueobject.IdentificadorExterno;
 import co.edu.uniquindio.sga.domain.valueobject.UmbralEdadFacturable;
 import co.edu.uniquindio.sga.domain.valueobject.VersionPolitica;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -186,7 +188,15 @@ public class Reserva {
         transitarA(EstadoReserva.FINALIZADA);
     }
 
-    public void declararNoShow(LocalDate fechaActual) {
+    /** RN-08 y L-15: solo desde CONFIRMADA y a partir de la hora límite del día de entrada. */
+    public void declararNoShow(LocalDateTime momentoActual, HoraLimiteNoShow horaLimite) {
+        if (momentoActual == null || horaLimite == null) {
+            throw new ReglaDominioException("Se debe indicar el momento actual y la hora límite de no-show.");
+        }
+        LocalDateTime limite = estancia.fechaEntrada().atTime(horaLimite.hora());
+        if (momentoActual.isBefore(limite)) {
+            throw new ReglaDominioException("Aún no se ha alcanzado la hora límite para declarar no-show.");
+        }
         transitarA(EstadoReserva.NO_SHOW);
     }
 

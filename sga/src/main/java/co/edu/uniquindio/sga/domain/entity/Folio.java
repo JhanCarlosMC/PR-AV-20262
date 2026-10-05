@@ -4,9 +4,11 @@ import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 import co.edu.uniquindio.sga.domain.valueobject.Cargo;
 import co.edu.uniquindio.sga.domain.valueobject.CodigoFolio;
 import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
+import co.edu.uniquindio.sga.domain.valueobject.ConceptoCargo;
 import co.edu.uniquindio.sga.domain.valueobject.Dinero;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +39,34 @@ public class Folio {
         this.codigo = codigo;
         this.reserva = reserva;
         this.cerrado = false;
+    }
+
+    /** F-08: el folio se abre al crear la reserva, con el cargo de alojamiento ya calculado. */
+    public static Folio abrir(CodigoReserva reserva, Dinero valorAlojamiento, LocalDate fecha) {
+        if (reserva == null) {
+            throw new ReglaDominioException("El folio debe indicar la reserva a la que pertenece.");
+        }
+        Folio folio = new Folio(new CodigoFolio("FOL-" + reserva.valor()), reserva);
+        folio.registrarCargo(new Cargo(ConceptoCargo.ALOJAMIENTO, valorAlojamiento, fecha,
+                "Alojamiento de la reserva " + reserva.valor(), false));
+        return folio;
+    }
+
+    /**
+     * RN-13 y RN-16: cuando la reserva termina sin estancia (cancelación o no-show), el cargo
+     * de alojamiento se revierte con un movimiento inverso y la retención queda como penalidad.
+     * Nada se borra: el folio conserva la historia completa.
+     */
+    public void liquidarTerminacion(Dinero valorAlojamiento, Dinero retencion, LocalDate fecha, String motivo) {
+        if (retencion == null) {
+            throw new ReglaDominioException("La retención a registrar es obligatoria.");
+        }
+        registrarMovimientoInverso(new Cargo(ConceptoCargo.ALOJAMIENTO, valorAlojamiento, fecha,
+                "Reverso de alojamiento: " + motivo, true));
+        if (!retencion.esCero()) {
+            registrarCargo(new Cargo(ConceptoCargo.PENALIDAD, retencion, fecha,
+                    "Retención: " + motivo, false));
+        }
     }
 
     /** RN-16: un cargo solo se agrega, nunca se modifica ni se elimina. */
