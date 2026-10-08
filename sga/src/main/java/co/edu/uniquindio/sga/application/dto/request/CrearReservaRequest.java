@@ -1,5 +1,6 @@
 package co.edu.uniquindio.sga.application.dto.request;
 
+import co.edu.uniquindio.sga.domain.valueobject.CanalOrigen;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +21,7 @@ public record CrearReservaRequest(
         LocalDate fechaSalida,
 
         @NotBlank(message = "El canal de origen es obligatorio")
-        String canalOrigen,
+        CanalOrigen canalOrigen,
 
         //No es obligatorio
         LocalTime horaEstimadaLlegada,
