@@ -1,0 +1,147 @@
+openapi: 3.1.0
+
+info:
+  title: API SGA — SGA Profe
+  description: |
+    API RESTful del Sistema de Gestión de Alojamiento de <nombre>.
+
+    **Agregado principal:** Reserva
+  version: 1.0.0
+  contact:
+    name: <Nombre del equipo>
+    email: <correo@uqvirtual.edu.co>
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor de desarrollo local
+
+tags:
+  - name: Reservas
+    description: Ciclo de vida del agregado Reserva
+  - name: Apartamentos
+    description: Ciclo de vida del agregado Apartamentos
+  # - name: <OtroModulo>
+  #   description: <...>
+
+paths:
+
+  # ==================== RESERVAS ====================
+
+  /api/reservas:
+    post:
+      tags: [Apartamentos]
+      summary: <Qué hace, en lenguaje del dominio>
+      operationId: crearReserva
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/<NombreRequest>'
+      responses:
+        '201':
+          description: <Recurso creado>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/<NombreResponse>'
+        '400':
+          $ref: '#/components/responses/DatosInvalidos'
+        '409':
+          $ref: '#/components/responses/ReglaDeNegocio'
+
+  /api/reservas/{codigo}:
+    get:
+      tags: [Reservas]
+      summary: <Consultar por identificador>
+      operationId: consultarReserva
+      parameters:
+        - $ref: '#/components/parameters/CodigoReserva'
+      responses:
+        '200':
+          description: <Recurso encontrado>
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/<NombreResponse>'
+        '404':
+          $ref: '#/components/responses/NoEncontrado'
+
+components:
+
+  parameters:
+    CodigoReserva:
+      name: codigo
+      in: path
+      required: true
+      schema:
+        type: string
+        example: RES-2026-0001
+
+  schemas:
+
+    # ---------- Request ----------
+    <NombreRequest>:
+      type: object
+      required: [<campo1>, <campo2>]
+      properties:
+        <campo1>:
+          type: string
+        <campo2>:
+          type: string
+          format: date
+
+    # ---------- Response ----------
+    <NombreResponse>:
+      type: object
+      properties:
+        codigo:
+          type: string
+        estado:
+          type: string
+
+    # ---------- Error ----------
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        error:
+          type: string
+        mensaje:
+          type: string
+          description: Mensaje con significado de negocio, nunca una traza técnica
+        path:
+          type: string
+
+  responses:
+    DatosInvalidos:
+      description: La petición no cumple el formato esperado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NoEncontrado:
+      description: El recurso no existe
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ReglaDeNegocio:
+      description: La operación viola una regla de negocio
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
