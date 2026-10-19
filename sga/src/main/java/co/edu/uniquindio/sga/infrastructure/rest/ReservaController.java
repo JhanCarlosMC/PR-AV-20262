@@ -14,6 +14,9 @@ import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 import co.edu.uniquindio.sga.domain.valueobject.IdentificacionApartamento;
 import co.edu.uniquindio.sga.infrastructure.rest.mapper.ReservaMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +38,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/reservas")
 @RequiredArgsConstructor  /** Genera el constructor con todos los campos final */
+@Tag(name = "Reservas", description = "Ciclo de vida del agregado Reserva")
 public class ReservaController {
 
     /** Casos de Uso - Dependencias - Mapper */
@@ -49,6 +53,12 @@ public class ReservaController {
 
     /** POST -> /api/reservas */
     @PostMapping
+    @Operation(summary = "Crear una reserva",
+               description = "Crea la reserva en estado PENDIENTE, congela valor y política (RN-22) y abre su folio (F-08)")
+    @ApiResponse(responseCode = "201", description = "Reserva creada")
+    @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos")
+    @ApiResponse(responseCode = "404", description = "El apartamento no existe")
+    @ApiResponse(responseCode = "409", description = "Una regla del negocio lo impide (RN-01, RN-02, RN-03, RN-04)")
     public ResponseEntity<ReservaDetalleResponse> crearReserva(@Valid @RequestBody CrearReservaRequest request) {
 
         /**
@@ -85,6 +95,9 @@ public class ReservaController {
 
     /** GET -> /api/reservas/{codigo} */
     @GetMapping("/{codigo}")
+    @Operation(summary = "Consultar una reserva")
+    @ApiResponse(responseCode = "200", description = "Detalle de la reserva")
+    @ApiResponse(responseCode = "404", description = "No existe una reserva con ese código")
     public ResponseEntity<ReservaDetalleResponse> obtenerReserva(@PathVariable String codigo) {
 
         /** El String de la URL se convierte a tipo del dominio ANTES del caso de uso */
@@ -94,6 +107,9 @@ public class ReservaController {
 
     /** GET -> /api/reservas?estado=PENDIENTE */
     @GetMapping
+    @Operation(summary = "Listar reservas por estado")
+    @ApiResponse(responseCode = "200", description = "Reservas en el estado indicado")
+    @ApiResponse(responseCode = "400", description = "Estado inexistente")
     public ResponseEntity<List<ReservaResumenResponse>> listarReservas(@RequestParam EstadoReserva estado) {
 
         List<Reserva> reservas = consultarReservasPorEstadoUseCase.ejecutar(estado);
@@ -107,6 +123,11 @@ public class ReservaController {
 
     /** PUT -> /api/reservas/{codigo}/confirmar */
     @PutMapping("/{codigo}/confirmar")
+    @Operation(summary = "Confirmar una reserva",
+               description = "Solo una reserva PENDIENTE con hora estimada de llegada (RN-08, RN-09)")
+    @ApiResponse(responseCode = "200", description = "Reserva confirmada")
+    @ApiResponse(responseCode = "404", description = "No existe una reserva con ese código")
+    @ApiResponse(responseCode = "409", description = "Transición inválida o falta la hora estimada de llegada")
     public ResponseEntity<ReservaDetalleResponse> confirmarReserva(@PathVariable String codigo) {
 
         Reserva reserva = confirmarReservaUseCase.ejecutar(new CodigoReserva(codigo));
@@ -115,6 +136,12 @@ public class ReservaController {
 
     /** PUT -> /api/reservas/{codigo}/cancelar */
     @PutMapping("/{codigo}/cancelar")
+    @Operation(summary = "Cancelar una reserva",
+               description = "Retención según la política congelada en la reserva (RN-13); libera las noches (RN-12)")
+    @ApiResponse(responseCode = "200", description = "Reserva cancelada")
+    @ApiResponse(responseCode = "400", description = "Falta el motivo o no cumple la longitud")
+    @ApiResponse(responseCode = "404", description = "No existe una reserva con ese código")
+    @ApiResponse(responseCode = "409", description = "La reserva ya inició o está en un estado terminal (RN-08)")
     public ResponseEntity<ReservaDetalleResponse> cancelarReserva(
             @PathVariable String codigo,
             @Valid @RequestBody CancelarReservaRequest request) {
