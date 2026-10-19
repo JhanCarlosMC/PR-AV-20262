@@ -13,11 +13,6 @@ import co.edu.uniquindio.sga.domain.valueobject.TiempoPreparacion;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-/**
- * RN-01 (sin solapamiento con reservas activas, sin importar el canal), RN-07 (sin bloqueo
- * vigente), RN-12 (las reservas no activas no cuentan) y RN-20 (tiempo de preparación entre
- * la salida de un grupo y la entrada del siguiente).
- */
 public class DisponibilidadApartamentoService {
 
     private final ReservaRepository reservaRepository;

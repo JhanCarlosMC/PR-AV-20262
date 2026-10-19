@@ -9,10 +9,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-/**
- * Entidad interna del agregado Reserva: no existe fuera de una reserva y no tiene
- * repositorio propio.
- */
 public class Ocupante {
 
     private final DocumentoIdentidad documento;

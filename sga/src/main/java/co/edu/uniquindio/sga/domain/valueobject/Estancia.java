@@ -6,11 +6,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Intervalo cerrado en la entrada y abierto en la salida: [entrada, salida).
- * Distinto de {@link Periodo}, que es cerrado en ambos extremos. Confundirlos
- * produce errores de una noche en el cálculo de disponibilidad y de valor.
- */
 public record Estancia(LocalDate fechaEntrada, LocalDate fechaSalida) {
 
     public Estancia {

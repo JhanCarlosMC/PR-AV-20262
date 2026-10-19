@@ -15,13 +15,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * RN-05 (cada noche se cobra con la tarifa de la temporada vigente en esa noche) y RN-06
- * (solo los ocupantes facturables generan cargo, evaluados a la fecha de entrada).
- *
- * <p>Las temporadas y el apartamento se reciben, no se buscan: el servicio sigue siendo
- * dominio puro y quien consulta los repositorios es el caso de uso.
- */
 public class LiquidacionEstanciaService {
 
     // L-09: el umbral es configuración del alojamiento, llega por constructor

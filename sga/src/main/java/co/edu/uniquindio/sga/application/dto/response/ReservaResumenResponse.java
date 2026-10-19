@@ -2,13 +2,8 @@ package co.edu.uniquindio.sga.application.dto.response;
 
 import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
-/**
- * Pensado para el endpoint: GET /api/reservas
- *
- */
 public record ReservaResumenResponse(
         String codigo,
         EstadoReserva estado,
@@ -17,7 +12,7 @@ public record ReservaResumenResponse(
         LocalDate fechaSalida,
         String nombreTitular,
         int totalOcupantes,
-        BigDecimal valorTotal
+        long valorTotal                     // pesos, sin decimales (3.4)
 
 ) {
 }

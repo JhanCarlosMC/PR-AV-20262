@@ -8,11 +8,6 @@ import co.edu.uniquindio.sga.domain.valueobject.MedioPago;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * Entidad interna del agregado Folio. Inmutable después de creado.
- *
- * <p>RN-16: los pagos no se modifican ni se eliminan; toda corrección es un movimiento inverso.
- */
 public class Pago {
 
     private final IdPago id;

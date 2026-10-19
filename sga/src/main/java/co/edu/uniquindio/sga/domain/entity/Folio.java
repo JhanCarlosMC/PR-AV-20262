@@ -13,12 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Raíz del agregado Folio.
- *
- * <p>RN-16: los cargos y pagos no se modifican ni se eliminan; toda corrección es un
- * movimiento inverso. No existen métodos para eliminar un cargo ni para modificar un pago.
- */
 public class Folio {
 
     private final CodigoFolio codigo;

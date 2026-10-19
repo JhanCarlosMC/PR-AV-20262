@@ -8,9 +8,6 @@ import co.edu.uniquindio.sga.domain.valueobject.IdentificacionApartamento;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * Raíz del agregado Novedad.
- */
 public class Novedad {
 
     private final IdNovedad id;

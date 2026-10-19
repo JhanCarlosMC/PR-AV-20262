@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * Raíz del agregado Apartamento.
- */
 public class Apartamento {
 
     private final IdentificacionApartamento identificacion;

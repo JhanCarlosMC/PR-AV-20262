@@ -1,4 +1,4 @@
-package co.edu.uniquindio.sga.infraestructure.persistence.inmemory;
+package co.edu.uniquindio.sga.infrastructure.persistence.inmemory;
 
 import co.edu.uniquindio.sga.domain.repository.GeneradorCodigoReserva;
 import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;

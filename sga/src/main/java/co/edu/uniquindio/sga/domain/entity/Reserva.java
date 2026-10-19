@@ -18,15 +18,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Raíz del agregado Reserva.
- *
- * <p>Invariantes que garantiza este agregado: RN-02 (capacidad del apartamento al crear y
- * modificar), RN-03 (a través de {@link Estancia}), RN-04 (no se reserva hacia el pasado),
- * RN-06 (ocupantes facturables), RN-08 (transiciones de estado), RN-09 (hora estimada de
- * llegada antes de confirmar), RN-10 (registro de llegada), RN-14 (revalidación al modificar)
- * y RN-22 (valor y política congelados al crear).
- */
 public class Reserva {
 
     private final CodigoReserva codigo;
@@ -64,12 +55,6 @@ public class Reserva {
         this.fechaCreacion = fechaCreacion;
     }
 
-    /**
-     * Nota de diseño: la capacidad entra como parámetro y no se consulta llamando a un
-     * objeto {@code Apartamento}, porque eso implicaría que este agregado lea el estado
-     * interno de otro agregado, lo cual está prohibido. Quien orquesta la creación es
-     * responsable de traer ese dato.
-     */
     public static Reserva crear(CodigoReserva codigo,
                                  IdentificacionApartamento apartamento,
                                  int capacidadApartamento,

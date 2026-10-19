@@ -3,13 +3,13 @@ package co.edu.uniquindio.sga.application.dto.request;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
 public record OcupanteRequest(
+        // Sin @Size: el proyecto no define una longitud para el documento,
+        // y un límite inventado rechazaría documentos válidos como TI1030998877
         @NotBlank(message = "El documento del ocupante es obligatorio")
-        @Size(min=7, max=11)
         String documento,
 
         @NotBlank(message = "El nombre del ocupante es obligatorio")

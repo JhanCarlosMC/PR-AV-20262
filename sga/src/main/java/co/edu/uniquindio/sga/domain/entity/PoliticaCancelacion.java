@@ -8,12 +8,6 @@ import co.edu.uniquindio.sga.domain.valueobject.VersionPolitica;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Raíz del agregado PoliticaCancelacion.
- *
- * <p>F-07: existe una única política por alojamiento, versionada en el tiempo.
- * L-10: el equipo define los tramos de antelación, con un mínimo de dos.
- */
 public class PoliticaCancelacion {
 
     private final VersionPolitica version;

@@ -7,12 +7,6 @@ import co.edu.uniquindio.sga.domain.valueobject.Periodo;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * Raíz del agregado Temporada.
- *
- * <p>F-05: existe una temporada base obligatoria que cubre el resto del año.
- * L-08: cuántas temporadas existen, sus nombres y sus fechas los define el equipo.
- */
 public class Temporada {
 
     private final IdTemporada id;

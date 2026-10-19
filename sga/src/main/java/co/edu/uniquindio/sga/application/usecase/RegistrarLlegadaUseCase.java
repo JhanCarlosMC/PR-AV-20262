@@ -11,12 +11,6 @@ import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 
 import java.time.LocalDate;
 
-/**
- * Dos agregados cambian en la misma operación (Reserva → EN_CURSO, Apartamento → OCUPADO).
- * La regla que los relaciona (RN-11) la coordina OperacionEstanciaService; el caso de uso
- * solo trae los agregados y los guarda. Que ambos queden guardados o ninguno lo resuelve
- * @Transactional en la Guía 09.
- */
 public class RegistrarLlegadaUseCase {
 
     private final ReservaRepository reservaRepository;

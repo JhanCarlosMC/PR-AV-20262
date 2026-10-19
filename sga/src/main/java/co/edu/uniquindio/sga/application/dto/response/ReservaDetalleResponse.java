@@ -3,7 +3,6 @@ package co.edu.uniquindio.sga.application.dto.response;
 import co.edu.uniquindio.sga.domain.valueobject.CanalOrigen;
 import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -20,7 +19,7 @@ public record ReservaDetalleResponse(
         OcupanteResponse titular,
         List<OcupanteResponse> ocupantes,
         int totalOcupantes,
-        BigDecimal valorTotal,                    // pesos, sin decimales (3.4)
+        long valorTotal,                    // pesos, sin decimales (3.4)
         String moneda,                      // "COP"
         String versionPoliticaCancelacion,  // la congelada en la reserva (RN-22)
         LocalDate fechaCreacion,

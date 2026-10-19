@@ -8,14 +8,6 @@ import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 
 import java.time.LocalDate;
 
-/**
- * Coordina las transiciones que cambian dos agregados en la misma operación: el registro
- * de llegada y de salida mueven a la vez la Reserva y el Apartamento (F-09).
- *
- * <p>Decisión de diseño: ninguno de los dos agregados lee el estado interno del otro, así
- * que la regla que los relaciona vive aquí. Cada método verifica primero todo lo que puede
- * fallar y solo después modifica los agregados, para no dejar uno cambiado y el otro no.
- */
 public class OperacionEstanciaService {
 
     /** RN-08, RN-10 (en Reserva) y RN-11: el apartamento debe estar activo y PREPARADO. */
