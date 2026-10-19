@@ -5,6 +5,7 @@ import co.edu.uniquindio.sga.domain.valueobject.IdentificacionApartamento;
 
 import java.util.Optional;
 
+/** Puerto del dominio: repositorio (Guías 05 y 06) */
 public interface ApartamentoRepository {
 
     Optional<Apartamento> obtenerPorIdentificacion(IdentificacionApartamento identificacion);

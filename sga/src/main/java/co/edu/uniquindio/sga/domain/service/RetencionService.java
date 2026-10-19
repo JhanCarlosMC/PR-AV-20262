@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
+ * Servicio de dominio (Guía 05)
+ *
  * RN-13: la retención por cancelación y por no-show se determina con la versión de política
  * congelada en la reserva (RN-22), no con la vigente al momento del hecho.
  */

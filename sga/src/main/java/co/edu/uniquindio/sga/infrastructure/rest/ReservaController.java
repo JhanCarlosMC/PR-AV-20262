@@ -14,6 +14,7 @@ import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 import co.edu.uniquindio.sga.domain.valueobject.IdentificacionApartamento;
 import co.edu.uniquindio.sga.infrastructure.rest.mapper.ReservaMapper;
+/** OpenAPI / Swagger UI (Guía 08, Parte 6) */
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,9 +36,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/** Controller REST como adaptador (Guía 08, Parte 1) */
 @RestController
 @RequestMapping("/api/reservas")
 @RequiredArgsConstructor  /** Genera el constructor con todos los campos final */
+/** OpenAPI / Swagger UI (Guía 08, Parte 6): @Tag, @Operation y @ApiResponse documentan cada endpoint */
 @Tag(name = "Reservas", description = "Ciclo de vida del agregado Reserva")
 public class ReservaController {
 

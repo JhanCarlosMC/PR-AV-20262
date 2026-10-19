@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/** Raíz del agregado Folio (Guía 05) */
 public class Folio {
 
     private final CodigoFolio codigo;

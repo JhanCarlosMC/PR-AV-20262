@@ -3,6 +3,7 @@ package co.edu.uniquindio.sga.domain.valueobject;
 import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 // RN-19: la combinación canal + identificador externo es única
+/** Objeto de valor (Guía 05) */
 public record IdentificadorExterno(CanalOrigen canal, String valor) {
 
     public IdentificadorExterno {

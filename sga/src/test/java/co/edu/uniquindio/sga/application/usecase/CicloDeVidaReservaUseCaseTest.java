@@ -51,6 +51,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/** Prueba de los casos de uso con repositorios en memoria (Guía 06) */
 class CicloDeVidaReservaUseCaseTest {
 
     private static final LocalDate HOY = LocalDate.of(2026, 10, 1);

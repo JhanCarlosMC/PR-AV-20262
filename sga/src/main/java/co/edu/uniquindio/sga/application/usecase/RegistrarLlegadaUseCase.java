@@ -11,6 +11,7 @@ import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 
 import java.time.LocalDate;
 
+/** Caso de uso (Guía 06) */
 public class RegistrarLlegadaUseCase {
 
     private final ReservaRepository reservaRepository;

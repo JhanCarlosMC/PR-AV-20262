@@ -1,3 +1,4 @@
+# --- Diseño de la API (Guía 07), actualizado con los endpoints implementados (Guía 08) ---
 openapi: 3.1.0
 
 info:

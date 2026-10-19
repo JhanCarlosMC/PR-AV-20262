@@ -20,6 +20,7 @@ import java.math.RoundingMode;
 import java.time.LocalTime;
 import java.util.List;
 
+/** Mapper DTO ↔ dominio con MapStruct (Guía 08, Parte 2) */
 @Mapper(componentModel = "spring")
 public interface ReservaMapper {
 

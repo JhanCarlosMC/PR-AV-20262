@@ -8,6 +8,7 @@ import co.edu.uniquindio.sga.domain.valueobject.MedioPago;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/** Entidad (Guía 05) */
 public class Pago {
 
     private final IdPago id;

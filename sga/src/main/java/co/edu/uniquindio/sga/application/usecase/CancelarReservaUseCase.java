@@ -15,6 +15,7 @@ import co.edu.uniquindio.sga.domain.valueobject.Dinero;
 
 import java.time.LocalDateTime;
 
+/** Caso de uso (Guía 06) */
 public class CancelarReservaUseCase {
 
     private final ReservaRepository reservaRepository;

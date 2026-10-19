@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 //Test para un objeto de valor
+/** Prueba unitaria del dominio (Guía 05.1) */
 class IdentificacionApartamentoTest {
 
     @Test

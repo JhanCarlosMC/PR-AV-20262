@@ -3,6 +3,7 @@ package co.edu.uniquindio.sga.domain.valueobject;
 import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 // L-09: el valor lo define cada equipo, nunca se quema en el código
+/** Objeto de valor (Guía 04) */
 public record UmbralEdadFacturable(int anios) {
 
     public UmbralEdadFacturable {

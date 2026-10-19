@@ -6,6 +6,7 @@ import co.edu.uniquindio.sga.domain.valueobject.VersionPolitica;
 import java.time.LocalDate;
 import java.util.Optional;
 
+/** Puerto del dominio: repositorio (Guías 05 y 06) */
 public interface PoliticaCancelacionRepository {
 
     /** RN-22: la versión que rige en la fecha indicada es la que se congela al crear la reserva. */

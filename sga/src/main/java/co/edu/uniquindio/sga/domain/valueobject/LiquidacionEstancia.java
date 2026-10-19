@@ -6,6 +6,7 @@ import java.util.List;
 
 // Desglose noche por noche de una estancia (7.4). Sirve tanto para cotizar como para
 // congelar el valor de una reserva al crearla (RN-22).
+/** Objeto de valor (Guía 05) */
 public record LiquidacionEstancia(List<NocheLiquidada> noches) {
 
     public LiquidacionEstancia {

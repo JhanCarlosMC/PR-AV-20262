@@ -4,6 +4,7 @@ import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 // RN-21: una reserva PENDIENTE que supera este plazo se cancela automáticamente
 // L-14: el valor lo define cada equipo, nunca se quema en el código
+/** Objeto de valor (Guía 05) */
 public record PlazoConfirmacion(int horas) {
 
     public PlazoConfirmacion {

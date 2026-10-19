@@ -2,6 +2,7 @@ package co.edu.uniquindio.sga.domain.valueobject;
 
 import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
+/** Objeto de valor (Guía 05) */
 public record CodigoFolio(String valor) {
 
     public CodigoFolio {

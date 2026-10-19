@@ -6,6 +6,7 @@ import java.time.LocalTime;
 
 // L-12: horas de entrada y salida del alojamiento. La antelación de una cancelación
 // (RN-13) se mide contra la hora de entrada del día de entrada.
+/** Objeto de valor (Guía 05) */
 public record HorarioAlojamiento(LocalTime horaEntrada, LocalTime horaSalida) {
 
     public HorarioAlojamiento {

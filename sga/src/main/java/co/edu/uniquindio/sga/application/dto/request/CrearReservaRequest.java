@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+/** DTO de entrada de la API (Guía 07) */
 public record CrearReservaRequest(
         @NotBlank(message = "La identificación del apartamento es obligatoria")
         String identificacionApartamento,

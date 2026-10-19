@@ -5,6 +5,7 @@ import co.edu.uniquindio.sga.domain.entity.Reserva;
 import co.edu.uniquindio.sga.domain.repository.ReservaRepository;
 import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 
+/** Caso de uso (Guía 06) */
 public class ConsultarReservaUseCase {
 
     private final ReservaRepository reservaRepository;

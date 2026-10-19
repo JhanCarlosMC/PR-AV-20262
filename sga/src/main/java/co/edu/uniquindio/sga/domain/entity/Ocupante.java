@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
+/** Entidad interna del agregado Reserva (Guía 04) */
 public class Ocupante {
 
     private final DocumentoIdentidad documento;

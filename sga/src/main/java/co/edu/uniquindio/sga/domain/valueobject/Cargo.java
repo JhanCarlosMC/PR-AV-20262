@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 // RN-16: un cargo nunca se modifica ni se elimina; esInverso marca el movimiento de corrección.
 // Es objeto de valor, no entidad: un cargo no se identifica, se acumula.
+/** Objeto de valor (Guía 05) */
 public record Cargo(ConceptoCargo concepto, Dinero valor, LocalDate fecha, String descripcion, boolean esInverso) {
 
     public Cargo {

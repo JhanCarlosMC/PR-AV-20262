@@ -7,6 +7,7 @@ import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 import java.util.HashMap;
 import java.util.Optional;
 
+/** Adaptador en memoria del puerto (Guía 06) */
 public class FolioRepositoryInMemory implements FolioRepository {
 
     private final HashMap<CodigoReserva, Folio> folios = new HashMap<>();

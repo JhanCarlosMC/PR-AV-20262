@@ -17,6 +17,7 @@ import co.edu.uniquindio.sga.domain.valueobject.HoraLimiteNoShow;
 import java.time.LocalDateTime;
 
 // Disparador distinto de la cancelación: no se fusiona con CancelarReservaUseCase (Guía 06, 3.3)
+/** Caso de uso (Guía 06) */
 public class DeclararNoShowUseCase {
 
     private final ReservaRepository reservaRepository;

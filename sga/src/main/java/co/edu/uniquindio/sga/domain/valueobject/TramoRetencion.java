@@ -4,6 +4,7 @@ import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 // RN-13: determina la retención por cancelación según la antelación con la que ocurre
 // L-10: el equipo define los tramos, con un mínimo de dos
+/** Objeto de valor (Guía 05) */
 public record TramoRetencion(int horasAntelacionMinima, Porcentaje retencion) {
 
     public TramoRetencion {

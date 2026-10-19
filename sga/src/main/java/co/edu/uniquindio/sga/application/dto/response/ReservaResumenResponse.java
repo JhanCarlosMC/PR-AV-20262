@@ -4,6 +4,7 @@ import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 
 import java.time.LocalDate;
 
+/** DTO de salida de la API (Guía 07) */
 public record ReservaResumenResponse(
         String codigo,
         EstadoReserva estado,

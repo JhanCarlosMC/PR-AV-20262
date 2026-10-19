@@ -8,6 +8,7 @@ import co.edu.uniquindio.sga.domain.valueobject.VersionPolitica;
 import java.util.List;
 import java.util.Objects;
 
+/** Raíz del agregado PoliticaCancelacion (Guía 05) */
 public class PoliticaCancelacion {
 
     private final VersionPolitica version;

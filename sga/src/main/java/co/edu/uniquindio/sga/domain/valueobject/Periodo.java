@@ -4,6 +4,7 @@ import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 import java.time.LocalDate;
 
+/** Objeto de valor (Guía 05) */
 public record Periodo(LocalDate desde, LocalDate hasta) {
 
     public Periodo {

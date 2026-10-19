@@ -8,6 +8,7 @@ import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 
 import java.time.LocalDate;
 
+/** Servicio de dominio (Guía 05) */
 public class OperacionEstanciaService {
 
     /** RN-08, RN-10 (en Reserva) y RN-11: el apartamento debe estar activo y PREPARADO. */

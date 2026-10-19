@@ -7,6 +7,7 @@ import co.edu.uniquindio.sga.domain.valueobject.IdTemporada;
 import java.util.HashMap;
 import java.util.List;
 
+/** Adaptador en memoria del puerto (Guía 06) */
 public class TemporadaRepositoryInMemory implements TemporadaRepository {
 
     private final HashMap<IdTemporada, Temporada> temporadas = new HashMap<>();

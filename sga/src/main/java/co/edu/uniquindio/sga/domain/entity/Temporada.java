@@ -7,6 +7,7 @@ import co.edu.uniquindio.sga.domain.valueobject.Periodo;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/** Raíz del agregado Temporada (Guía 05) */
 public class Temporada {
 
     private final IdTemporada id;

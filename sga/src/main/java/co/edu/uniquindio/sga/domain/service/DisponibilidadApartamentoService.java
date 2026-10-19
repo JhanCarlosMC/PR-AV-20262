@@ -13,6 +13,7 @@ import co.edu.uniquindio.sga.domain.valueobject.TiempoPreparacion;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+/** Servicio de dominio (Guía 05) */
 public class DisponibilidadApartamentoService {
 
     private final ReservaRepository reservaRepository;

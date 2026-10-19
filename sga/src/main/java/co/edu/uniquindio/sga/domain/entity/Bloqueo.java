@@ -10,6 +10,7 @@ import co.edu.uniquindio.sga.domain.valueobject.Periodo;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/** Raíz del agregado Bloqueo (Guía 05) */
 public class Bloqueo {
 
     private final IdBloqueo id;

@@ -9,6 +9,7 @@ import co.edu.uniquindio.sga.domain.valueobject.Periodo;
 import java.util.List;
 import java.util.Optional;
 
+/** Puerto del dominio: repositorio (Guías 05 y 06) */
 public interface ReservaRepository {
 
     List<Reserva> buscarActivasPorApartamento(IdentificacionApartamento apartamento, Periodo periodo);

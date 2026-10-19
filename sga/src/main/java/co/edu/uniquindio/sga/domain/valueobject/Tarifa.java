@@ -4,6 +4,7 @@ import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 // RN-05 y F-05: la tarifa es el valor por ocupante facturable por noche, no el precio de la noche.
 // Vive dentro del agregado Apartamento y referencia la temporada por identificador.
+/** Objeto de valor (Guía 05) */
 public record Tarifa(IdTemporada temporada, Dinero valorPorOcupanteNoche) {
 
     public Tarifa {

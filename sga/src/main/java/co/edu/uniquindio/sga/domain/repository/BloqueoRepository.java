@@ -6,6 +6,7 @@ import co.edu.uniquindio.sga.domain.valueobject.Periodo;
 
 import java.util.List;
 
+/** Puerto del dominio: repositorio (Guías 05 y 06) */
 public interface BloqueoRepository {
 
     List<Bloqueo> buscarVigentesPorApartamento(IdentificacionApartamento apartamento, Periodo periodo);

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+    /** Prueba unitaria del dominio (Guía 05.1) */
     class OcupanteTest {
 
         /** RN-06: un ocupante es facturable si a la fecha de entrada alcanza el umbral configurado. */

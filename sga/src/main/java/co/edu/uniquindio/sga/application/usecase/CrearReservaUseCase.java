@@ -26,6 +26,7 @@ import co.edu.uniquindio.sga.domain.valueobject.TiempoPreparacion;
 import java.time.LocalDate;
 import java.util.List;
 
+/** Caso de uso (Guía 06) */
 public class CrearReservaUseCase {
 
     private final ReservaRepository reservaRepository;

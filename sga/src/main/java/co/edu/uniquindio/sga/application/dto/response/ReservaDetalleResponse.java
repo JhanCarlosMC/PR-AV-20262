@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+/** DTO de salida de la API (Guía 07) */
 public record ReservaDetalleResponse(
         String codigo,                      // "RES-2026-00001", no el objeto CodigoReserva
         EstadoReserva estado,

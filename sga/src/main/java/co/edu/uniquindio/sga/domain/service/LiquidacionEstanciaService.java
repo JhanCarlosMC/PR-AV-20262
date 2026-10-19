@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Servicio de dominio (Guía 05) */
 public class LiquidacionEstanciaService {
 
     // L-09: el umbral es configuración del alojamiento, llega por constructor

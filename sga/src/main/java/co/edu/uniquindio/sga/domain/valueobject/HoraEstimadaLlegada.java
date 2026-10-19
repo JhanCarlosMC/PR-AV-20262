@@ -5,6 +5,7 @@ import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 import java.time.LocalTime;
 
 // RN-09: toda reserva debe registrar hora estimada de llegada antes de confirmarse
+/** Objeto de valor (Guía 05) */
 public record HoraEstimadaLlegada(LocalTime hora) {
 
     public HoraEstimadaLlegada {

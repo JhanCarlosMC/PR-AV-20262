@@ -9,6 +9,7 @@ import co.edu.uniquindio.sga.domain.valueobject.Periodo;
 import java.util.HashMap;
 import java.util.List;
 
+/** Adaptador en memoria del puerto (Guía 06) */
 public class BloqueoRepositoryInMemory implements BloqueoRepository {
 
     private final HashMap<IdBloqueo, Bloqueo> bloqueos = new HashMap<>();

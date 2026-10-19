@@ -4,6 +4,7 @@ import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 import java.math.BigDecimal;
 
+/** Objeto de valor (Guía 05) */
 public record Porcentaje(BigDecimal valor) {
 
     public Porcentaje {

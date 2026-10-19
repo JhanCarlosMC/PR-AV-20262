@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Optional;
 
+/** Adaptador en memoria del puerto (Guía 06) */
 public class PoliticaCancelacionRepositoryInMemory implements PoliticaCancelacionRepository {
 
     private final HashMap<VersionPolitica, PoliticaCancelacion> politicas = new HashMap<>();

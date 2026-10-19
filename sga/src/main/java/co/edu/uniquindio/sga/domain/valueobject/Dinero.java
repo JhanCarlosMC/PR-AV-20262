@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 // Prohibido float/double para dinero: toda cifra monetaria del dominio pasa por este objeto de valor
+/** Objeto de valor (Guía 04) */
 public record Dinero(BigDecimal valor) {
 
     public static final Dinero CERO = new Dinero(BigDecimal.ZERO);

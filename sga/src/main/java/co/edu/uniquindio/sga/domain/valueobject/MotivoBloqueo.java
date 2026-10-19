@@ -1,6 +1,7 @@
 package co.edu.uniquindio.sga.domain.valueobject;
 
 // RN-07: un apartamento con bloqueo vigente sobre una noche no está disponible para esa noche
+/** Objeto de valor (Guía 05) */
 public enum MotivoBloqueo {
     MANTENIMIENTO,
     USO_INTERNO,

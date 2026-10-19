@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+/** Entidad Reserva (Guía 04), raíz del agregado Reserva (Guía 05) */
 public class Reserva {
 
     private final CodigoReserva codigo;

@@ -1,5 +1,6 @@
 package co.edu.uniquindio.sga.domain.valueobject;
 
+/** Objeto de valor (Guía 04) */
 public enum EstadoOperativo {
     PREPARADO,
     OCUPADO,

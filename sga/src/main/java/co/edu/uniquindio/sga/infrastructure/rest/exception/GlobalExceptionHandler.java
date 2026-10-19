@@ -20,6 +20,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * Manejo de excepciones (Guía 08, Parte 4)
+ *
  * Convención de la Guía 07 (4.6):
  * 400 el mensaje está mal escrito · 404 el identificador no existe · 409 el negocio no lo permite.
  */

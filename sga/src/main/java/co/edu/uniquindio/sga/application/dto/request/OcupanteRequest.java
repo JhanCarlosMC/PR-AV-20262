@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Past;
 
 import java.time.LocalDate;
 
+/** DTO de entrada de la API (Guía 07) */
 public record OcupanteRequest(
         // Sin @Size: el proyecto no define una longitud para el documento,
         // y un límite inventado rechazaría documentos válidos como TI1030998877

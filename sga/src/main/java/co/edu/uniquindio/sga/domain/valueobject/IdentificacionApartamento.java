@@ -3,6 +3,7 @@ package co.edu.uniquindio.sga.domain.valueobject;
 import co.edu.uniquindio.sga.domain.exception.ReglaDominioException;
 
 // L-04: la identificación de cada apartamento es única y estable
+/** Objeto de valor (Guía 04) */
 public record IdentificacionApartamento(String valor) {
 
     public IdentificacionApartamento {

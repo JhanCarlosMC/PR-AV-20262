@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+/** Adaptador en memoria del puerto (Guía 06) */
 public class ReservaRepositoryInMemory implements ReservaRepository {
 
     private final HashMap<CodigoReserva, Reserva> reservas = new HashMap<>();

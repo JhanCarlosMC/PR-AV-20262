@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/** Entidad Apartamento (Guía 04), raíz del agregado Apartamento (Guía 05) */
 public class Apartamento {
 
     private final IdentificacionApartamento identificacion;

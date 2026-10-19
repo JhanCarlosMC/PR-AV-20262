@@ -7,6 +7,7 @@ import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 import java.util.List;
 
 // La paginación de 10 por página (7.5, 12.4) llega con la Guía 11
+/** Caso de uso (Guía 06) */
 public class ConsultarReservasPorEstadoUseCase {
 
     private final ReservaRepository reservaRepository;
