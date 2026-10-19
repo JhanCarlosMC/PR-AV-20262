@@ -14,7 +14,11 @@ import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 
 import java.time.LocalDate;
 
-/** Caso de uso (Guía 06) */
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/** Caso de uso (Guía 06), servicio de Spring con transacción (Guía 09) */
+@Service
 public class RegistrarSalidaUseCase {
 
     private final ReservaRepository reservaRepository;
@@ -36,6 +40,7 @@ public class RegistrarSalidaUseCase {
      * @param autorizacionCierre opcional. Solo se exige si el saldo del folio no es cero (RN-17);
      *                           el caso de uso no decide si autorizar, solo la transporta.
      */
+    @Transactional
     public Reserva ejecutar(CodigoReserva codigo, String autorizacionCierre, LocalDate fechaActual) {
         Reserva reserva = reservaRepository.obtenerPorCodigo(codigo)
                 .orElseThrow(() -> new ReservaNoEncontradaException(codigo));

@@ -7,7 +7,10 @@ import co.edu.uniquindio.sga.domain.valueobject.IdTemporada;
 import java.util.HashMap;
 import java.util.List;
 
-/** Adaptador en memoria del puerto (Guía 06) */
+import org.springframework.stereotype.Repository;
+
+/** Adaptador en memoria del puerto (Guía 06), bean de Spring (Guía 09) */
+@Repository
 public class TemporadaRepositoryInMemory implements TemporadaRepository {
 
     private final HashMap<IdTemporada, Temporada> temporadas = new HashMap<>();

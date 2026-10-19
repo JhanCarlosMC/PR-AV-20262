@@ -9,7 +9,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Optional;
 
-/** Adaptador en memoria del puerto (Guía 06) */
+import org.springframework.stereotype.Repository;
+
+/** Adaptador en memoria del puerto (Guía 06), bean de Spring (Guía 09) */
+@Repository
 public class PoliticaCancelacionRepositoryInMemory implements PoliticaCancelacionRepository {
 
     private final HashMap<VersionPolitica, PoliticaCancelacion> politicas = new HashMap<>();

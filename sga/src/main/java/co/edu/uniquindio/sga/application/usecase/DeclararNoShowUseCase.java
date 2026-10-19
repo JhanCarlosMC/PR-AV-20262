@@ -16,8 +16,12 @@ import co.edu.uniquindio.sga.domain.valueobject.HoraLimiteNoShow;
 
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 // Disparador distinto de la cancelación: no se fusiona con CancelarReservaUseCase (Guía 06, 3.3)
-/** Caso de uso (Guía 06) */
+/** Caso de uso (Guía 06), servicio de Spring con transacción (Guía 09) */
+@Service
 public class DeclararNoShowUseCase {
 
     private final ReservaRepository reservaRepository;
@@ -39,6 +43,7 @@ public class DeclararNoShowUseCase {
         this.horaLimite = horaLimite;
     }
 
+    @Transactional
     public Reserva ejecutar(CodigoReserva codigo, LocalDateTime momentoActual) {
         Reserva reserva = reservaRepository.obtenerPorCodigo(codigo)
                 .orElseThrow(() -> new ReservaNoEncontradaException(codigo));

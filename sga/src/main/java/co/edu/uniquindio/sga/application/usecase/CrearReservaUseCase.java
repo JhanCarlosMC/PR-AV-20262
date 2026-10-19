@@ -26,7 +26,11 @@ import co.edu.uniquindio.sga.domain.valueobject.TiempoPreparacion;
 import java.time.LocalDate;
 import java.util.List;
 
-/** Caso de uso (Guía 06) */
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/** Caso de uso (Guía 06), servicio de Spring con transacción (Guía 09) */
+@Service
 public class CrearReservaUseCase {
 
     private final ReservaRepository reservaRepository;
@@ -61,6 +65,7 @@ public class CrearReservaUseCase {
     }
 
     /** La hora estimada de llegada es opcional al crear; es obligatoria para confirmar (RN-09). */
+    @Transactional
     public Reserva ejecutar(IdentificacionApartamento apartamentoId, Estancia estancia,
                             HoraEstimadaLlegada horaEstimadaLlegada,
                             Ocupante titular, List<Ocupante> ocupantes,

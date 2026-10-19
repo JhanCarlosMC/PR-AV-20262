@@ -15,7 +15,11 @@ import co.edu.uniquindio.sga.domain.valueobject.Dinero;
 
 import java.time.LocalDateTime;
 
-/** Caso de uso (Guía 06) */
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/** Caso de uso (Guía 06), servicio de Spring con transacción (Guía 09) */
+@Service
 public class CancelarReservaUseCase {
 
     private final ReservaRepository reservaRepository;
@@ -33,6 +37,7 @@ public class CancelarReservaUseCase {
         this.retencionService = retencionService;
     }
 
+    @Transactional
     public Reserva ejecutar(CodigoReserva codigo, String motivo, LocalDateTime momentoActual) {
         Reserva reserva = reservaRepository.obtenerPorCodigo(codigo)
                 .orElseThrow(() -> new ReservaNoEncontradaException(codigo));

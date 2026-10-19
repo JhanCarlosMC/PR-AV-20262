@@ -7,7 +7,10 @@ import co.edu.uniquindio.sga.domain.valueobject.IdentificacionApartamento;
 import java.util.HashMap;
 import java.util.Optional;
 
-/** Adaptador en memoria del puerto (Guía 06) */
+import org.springframework.stereotype.Repository;
+
+/** Adaptador en memoria del puerto (Guía 06), bean de Spring (Guía 09) */
+@Repository
 public class ApartamentoRepositoryInMemory implements ApartamentoRepository {
 
     private final HashMap<IdentificacionApartamento, Apartamento> apartamentos = new HashMap<>();
