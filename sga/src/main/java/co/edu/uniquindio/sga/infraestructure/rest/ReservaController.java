@@ -106,6 +106,4 @@ public class ReservaController {
         return ResponseEntity.ok(mapper.aDetalle(reserva));
     }
 
-
-
 }

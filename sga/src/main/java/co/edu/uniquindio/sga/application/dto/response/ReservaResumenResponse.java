@@ -2,6 +2,7 @@ package co.edu.uniquindio.sga.application.dto.response;
 
 import co.edu.uniquindio.sga.domain.valueobject.EstadoReserva;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -16,7 +17,7 @@ public record ReservaResumenResponse(
         LocalDate fechaSalida,
         String nombreTitular,
         int totalOcupantes,
-        long valorTotal
+        BigDecimal valorTotal
 
 ) {
 }
