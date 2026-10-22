@@ -117,6 +117,29 @@ public class Reserva {
                 List.copyOf(ocupantes), valorCongelado, politicaCongelada, fechaActual);
     }
 
+    //Reconstruye una reserva ya guardada anteriormente.NO hace validaciones de creacion
+    public static Reserva recontruir(CodigoReserva codigo,
+                                     IdentificacionApartamento apartamento,
+                                     Estancia estancia,
+                                     EstadoReserva estado,
+                                     CanalOrigen canalOrigen,
+                                     Ocupante titular,
+                                     List<Ocupante> ocupantes,
+                                     HoraEstimadaLlegada horaEstimadaLlegada,
+                                     Dinero valorCongelado,
+                                     VersionPolitica politicaCongelada,
+                                     LocalDate fechaCreacion,
+                                     String motivoCancelacion){
+
+        Reserva reserva = new Reserva(codigo,apartamento,estancia,canalOrigen,
+                titular,List.copyOf(ocupantes),valorCongelado,politicaCongelada,fechaCreacion);
+
+        reserva.estado = estado;
+        reserva.horaEstimadaLlegada = horaEstimadaLlegada;
+        reserva.motivoCancelacion = motivoCancelacion;
+        return reserva;
+    }
+
     public int totalOcupantes() {
         return ocupantes.size();
     }
