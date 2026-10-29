@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CollectionId;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -45,6 +44,7 @@ public class ReservaEntity {
     @Column(name = "documento_titular", nullable = false, length = 15)
     private String documentoTitular;
 
+    @ElementCollection
     @CollectionTable(name = "reserva_ocupantes", //Creaacion de tabla
                     joinColumns = @JoinColumn(name = "reserva_id")) //Relacion llave foranea
     private List<OcupanteEmbeddable> ocupantes = new ArrayList<>();

@@ -11,10 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Repository;
-
-/** Adaptador en memoria del puerto (Guía 06), bean de Spring (Guía 09) */
-@Repository
+/** Adaptador en memoria del puerto (Guía 06), disponible para pruebas sin Spring. */
 public class ReservaRepositoryInMemory implements ReservaRepository {
 
     private final HashMap<CodigoReserva, Reserva> reservas = new HashMap<>();

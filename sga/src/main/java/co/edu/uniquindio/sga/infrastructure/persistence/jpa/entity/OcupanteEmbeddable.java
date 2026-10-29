@@ -1,9 +1,11 @@
 package co.edu.uniquindio.sga.infrastructure.persistence.jpa.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 
 import java.time.LocalDate;
 
+@Embeddable
 public record OcupanteEmbeddable(
         @Column(name = "documento", nullable = false, length = 15)
         String documento,
