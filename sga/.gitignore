@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Credenciales locales
+application-secrets.properties

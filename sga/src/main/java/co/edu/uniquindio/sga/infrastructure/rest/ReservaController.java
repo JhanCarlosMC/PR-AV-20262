@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,6 +57,9 @@ public class ReservaController {
 
     /** POST -> /api/reservas */
     @PostMapping
+    @PreAuthorize("@propietarioReserva.puedeCrear(#request, authentication)")
+    @ApiResponse(responseCode = "401", description = "Sin token o token inválido")
+    @ApiResponse(responseCode = "403", description = "Acceso denegado")
     @Operation(summary = "Crear una reserva",
                description = "Crea la reserva en estado PENDIENTE, congela valor y política (RN-22) y abre su folio (F-08)")
     @ApiResponse(responseCode = "201", description = "Reserva creada")
@@ -98,6 +102,9 @@ public class ReservaController {
 
     /** GET -> /api/reservas/{codigo} */
     @GetMapping("/{codigo}")
+    @PreAuthorize("hasAnyAuthority('RECEPCIONISTA', 'ADMINISTRADOR') or (hasAuthority('HUESPED') and @propietarioReserva.esTitular(#codigo, authentication))")
+    @ApiResponse(responseCode = "401", description = "Sin token o token inválido")
+    @ApiResponse(responseCode = "403", description = "Acceso denegado")
     @Operation(summary = "Consultar una reserva")
     @ApiResponse(responseCode = "200", description = "Detalle de la reserva")
     @ApiResponse(responseCode = "404", description = "No existe una reserva con ese código")
@@ -110,6 +117,9 @@ public class ReservaController {
 
     /** GET -> /api/reservas?estado=PENDIENTE */
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('RECEPCIONISTA', 'ADMINISTRADOR')")
+    @ApiResponse(responseCode = "401", description = "Sin token o token inválido")
+    @ApiResponse(responseCode = "403", description = "Acceso denegado")
     @Operation(summary = "Listar reservas por estado")
     @ApiResponse(responseCode = "200", description = "Reservas en el estado indicado")
     @ApiResponse(responseCode = "400", description = "Estado inexistente")
@@ -126,6 +136,9 @@ public class ReservaController {
 
     /** PUT -> /api/reservas/{codigo}/confirmar */
     @PutMapping("/{codigo}/confirmar")
+    @PreAuthorize("hasAnyAuthority('RECEPCIONISTA', 'ADMINISTRADOR')")
+    @ApiResponse(responseCode = "401", description = "Sin token o token inválido")
+    @ApiResponse(responseCode = "403", description = "Acceso denegado")
     @Operation(summary = "Confirmar una reserva",
                description = "Solo una reserva PENDIENTE con hora estimada de llegada (RN-08, RN-09)")
     @ApiResponse(responseCode = "200", description = "Reserva confirmada")
@@ -139,6 +152,9 @@ public class ReservaController {
 
     /** PUT -> /api/reservas/{codigo}/cancelar */
     @PutMapping("/{codigo}/cancelar")
+    @PreAuthorize("hasAnyAuthority('RECEPCIONISTA', 'ADMINISTRADOR') or (hasAuthority('HUESPED') and @propietarioReserva.esTitular(#codigo, authentication))")
+    @ApiResponse(responseCode = "401", description = "Sin token o token inválido")
+    @ApiResponse(responseCode = "403", description = "Acceso denegado")
     @Operation(summary = "Cancelar una reserva",
                description = "Retención según la política congelada en la reserva (RN-13); libera las noches (RN-12)")
     @ApiResponse(responseCode = "200", description = "Reserva cancelada")

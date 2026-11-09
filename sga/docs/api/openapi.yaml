@@ -22,6 +22,57 @@ tags:
 
 paths:
 
+  /api/auth/login:
+    post:
+      summary: Iniciar sesión
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [correo, contrasena]
+              properties:
+                correo: {type: string, format: email}
+                contrasena: {type: string, format: password}
+      responses:
+        '200':
+          description: Token JWT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: {type: string}
+                  tipo: {type: string, const: Bearer}
+                  expiraEn: {type: string, format: date-time}
+                  roles: {type: array, items: {type: string}}
+        '400': {description: Datos inválidos}
+        '401': {description: Credenciales inválidas}
+  /api/auth/registro:
+    post:
+      summary: Registrar un usuario exclusivamente con rol HUESPED
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [nombre, correo, contrasena, telefono, documento, fechaNacimiento]
+              properties:
+                nombre: {type: string, maxLength: 100}
+                correo: {type: string, format: email, maxLength: 120}
+                contrasena: {type: string, format: password, minLength: 8, maxLength: 72, pattern: '^(?=.*[A-Z])(?=.*[0-9]).{8,72}$'}
+                telefono: {type: string, maxLength: 20}
+                documento: {type: string, maxLength: 15}
+                fechaNacimiento: {type: string, format: date}
+      responses:
+        '201': {description: Huésped registrado}
+        '400': {description: Datos inválidos}
+        '409': {description: Correo o documento duplicado}
+
   # ==================== RESERVAS ====================
 
   /api/reservas:
@@ -56,6 +107,10 @@ paths:
                   nombre: Sofía Ramírez
                   fechaNacimiento: '2019-03-02'
       responses:
+        '401':
+          description: Sin token o token inválido
+        '403':
+          description: Rol, canal o propietario no autorizado
         '201':
           description: Reserva creada
           headers:
@@ -89,6 +144,10 @@ paths:
           schema:
             $ref: '#/components/schemas/EstadoReserva'
       responses:
+        '401':
+          description: Sin token o token inválido
+        '403':
+          description: Rol, canal o propietario no autorizado
         '200':
           description: Reservas en el estado indicado
           content:
@@ -109,6 +168,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CodigoReserva'
       responses:
+        '401':
+          description: Sin token o token inválido
+        '403':
+          description: Rol, canal o propietario no autorizado
         '200':
           description: Detalle de la reserva
           content:
@@ -130,6 +193,10 @@ paths:
       parameters:
         - $ref: '#/components/parameters/CodigoReserva'
       responses:
+        '401':
+          description: Sin token o token inválido
+        '403':
+          description: Rol, canal o propietario no autorizado
         '200':
           description: Reserva confirmada
           content:
@@ -162,6 +229,10 @@ paths:
             example:
               motivo: El titular cambió de planes
       responses:
+        '401':
+          description: Sin token o token inválido
+        '403':
+          description: Rol, canal o propietario no autorizado
         '200':
           description: Reserva cancelada
           content:

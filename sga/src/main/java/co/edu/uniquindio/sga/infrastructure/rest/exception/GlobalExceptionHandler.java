@@ -67,6 +67,19 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage(), request, null);
     }
 
+    @ExceptionHandler(org.springframework.security.core.AuthenticationException.class)
+    public ResponseEntity<ErrorResponse> autenticacion(Exception ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.UNAUTHORIZED, "Credenciales inválidas", request, null);
+    }
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> acceso(Exception ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.FORBIDDEN, "No tiene permiso para realizar esta operación", request, null);
+    }
+    @ExceptionHandler(co.edu.uniquindio.sga.application.exception.UsuarioDuplicadoException.class)
+    public ResponseEntity<ErrorResponse> duplicado(Exception ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage(), request, null);
+    }
+
     /** Excepciones genéricas */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex, HttpServletRequest request) {

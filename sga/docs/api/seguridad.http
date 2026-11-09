@@ -1,0 +1,86 @@
+# Ejecutar con IntelliJ HTTP Client. Los logins guardan los tokens automáticamente.
+@base = http://localhost:8080
+@codigo = RES-REEMPLAZAR
+# Para #14 copiar un token emitido y esperar al vencimiento (30 minutos + tolerancia).
+@tokenVencido = REEMPLAZAR
+
+### 3. Login recepción: 200
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"recepcion@sga.local","contrasena":"Recepcion2026"}
+> {% client.test("Login 200", () => client.assert(response.status === 200)); client.global.set("recepcion", response.body.token); %}
+
+### Login huésped titular
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"huesped1@sga.local","contrasena":"Huesped2026"}
+> {% client.global.set("huesped1", response.body.token); %}
+
+### Login huésped ajeno
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"huesped2@sga.local","contrasena":"Huesped2026"}
+> {% client.global.set("huesped2", response.body.token); %}
+
+### Login servicio
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"servicio@sga.local","contrasena":"Servicio2026"}
+> {% client.global.set("servicio", response.body.token); %}
+
+### 4. Contraseña errada: 401
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"recepcion@sga.local","contrasena":"incorrecta"}
+
+### 5. Correo inválido: 400
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{"correo":"sin-formato","contrasena":"Recepcion2026"}
+
+### 6. Sin token: 401
+GET {{base}}/api/reservas?estado=PENDIENTE
+
+### 7. Huésped no lista: 403
+GET {{base}}/api/reservas?estado=PENDIENTE
+Authorization: Bearer {{huesped1}}
+
+### 8. Recepción lista: 200
+GET {{base}}/api/reservas?estado=PENDIENTE
+Authorization: Bearer {{recepcion}}
+
+### 9. Reserva con titular documento 1094000111: 200 (configurar codigo)
+GET {{base}}/api/reservas/{{codigo}}
+Authorization: Bearer {{huesped1}}
+
+### 10. Reserva ajena: 403
+GET {{base}}/api/reservas/{{codigo}}
+Authorization: Bearer {{huesped2}}
+
+### 11. Reserva inexistente: 404
+GET {{base}}/api/reservas/RES-NO-EXISTE
+Authorization: Bearer {{recepcion}}
+
+### 12. Servicio no confirma: 403
+PUT {{base}}/api/reservas/{{codigo}}/confirmar
+Authorization: Bearer {{servicio}}
+
+### 13. Token alterado: 401
+GET {{base}}/api/reservas?estado=PENDIENTE
+Authorization: Bearer x{{recepcion}}
+
+### 14. Token vencido: 401 (automático en SeguridadIntegrationTest)
+GET {{base}}/api/reservas?estado=PENDIENTE
+Authorization: Bearer {{tokenVencido}}
+
+### Registro público: 201; repetir: 409
+POST {{base}}/api/auth/registro
+Content-Type: application/json
+
+{"nombre":"Invitado","correo":"invitado@sga.local","contrasena":"Invitado2026","telefono":"3001234567","documento":"99000123","fechaNacimiento":"1995-01-01"}
