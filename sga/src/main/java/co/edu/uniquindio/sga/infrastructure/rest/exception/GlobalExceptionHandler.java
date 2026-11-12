@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import javax.security.sasl.AuthenticationException;
 import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -105,5 +106,11 @@ public class GlobalExceptionHandler {
                 status.getReasonPhrase(), mensaje, request.getRequestURI(), errores);
 
         return ResponseEntity.status(status).body(response);
+    }
+
+    // Credenciales inválidas en POST /api/auth/login → 401, no 500
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ErrorResponse> handleAutenticacion(AuthenticationException ex, HttpServletRequest request) {
+        return buildErrorResponse(HttpStatus.UNAUTHORIZED, "Correo o contraseña incorrectos", request, null);
     }
 }

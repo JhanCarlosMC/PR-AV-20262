@@ -1,25 +1,29 @@
-import { Link } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
+import type { TokenResponse } from '../models/auth';
+import { puedeGestionarReservas } from '../services/sesion';
 
 interface EncabezadoProps {
-  nombreAlojamiento: string;
+  sesion: TokenResponse | null;
+  alSalir: () => void;
 }
 
-export function Encabezado({ nombreAlojamiento }: EncabezadoProps) {
+export function Encabezado({ sesion, alSalir }: EncabezadoProps) {
+  const navegar = useNavigate();
+
   return (
-    <header>
-      <p>{nombreAlojamiento}</p>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Inicio</Link>
-            </li>
-          <li>
-            <Link to="/login">Ingresar</Link>
-            </li>
-          <li>
-            <Link to="/registro">Registrarse</Link>
-            </li>
-        </ul>
+    <header className="encabezado">
+      <Link className="marca" to="/">ApartaHotel La Marteja</Link>
+      <nav aria-label="Navegación principal">
+        <NavLink to="/">Inicio</NavLink>
+        {puedeGestionarReservas(sesion) && <NavLink to="/reservas">Reservas</NavLink>}
+        {sesion ? (
+          <button className="secundario" type="button" onClick={() => {
+            alSalir();
+            navegar('/login', { replace: true });
+          }}>
+            Cerrar sesión
+          </button>
+        ) : <NavLink to="/login">Ingresar</NavLink>}
       </nav>
     </header>
   );

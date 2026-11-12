@@ -7,10 +7,8 @@ import co.edu.uniquindio.sga.domain.valueobject.CodigoReserva;
 import java.util.HashMap;
 import java.util.Optional;
 
-import org.springframework.stereotype.Repository;
 
-/** Adaptador en memoria del puerto (Guía 06), bean de Spring (Guía 09) */
-@Repository
+/** Adaptador en memoria del puerto (Guía 06) */
 public class FolioRepositoryInMemory implements FolioRepository {
 
     private final HashMap<CodigoReserva, Folio> folios = new HashMap<>();

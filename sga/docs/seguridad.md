@@ -21,7 +21,7 @@ Usuarios exclusivos del entorno académico H2:
 
 | Correo | Contraseña | Rol |
 |---|---|---|
-| admin@sga.local | Admin2026 | ADMINISTRADOR |
+| admin@sga.co | Admin2026 | ADMINISTRADOR |
 | recepcion@sga.local | Recepcion2026 | RECEPCIONISTA |
 | servicio@sga.local | Servicio2026 | PERSONAL_SERVICIO |
 | huesped1@sga.local | Huesped2026 | HUESPED |
@@ -40,12 +40,13 @@ Correo y documento únicos; duplicados responden 409. Contraseñas con BCrypt.
 | Listar/confirmar reservas | No | Sí | Sí | No |
 | /api/temporadas/** | No | No | Sí | No |
 | /api/tarifas/** | No | No | Sí | No |
-| /api/apartamentos/** | No | No | Sí | No |
+| GET /api/apartamentos | Sí, también sin sesión | Sí | Sí | Sí |
+| Otras operaciones de /api/apartamentos/** | No | No | Sí | No |
 | /api/bloqueos/** | No | No | Sí | No |
 | PUT /api/apartamentos/{id}/estado-operativo | No | No | Sí | Sí |
 
-Las cinco últimas rutas son reglas preventivas para endpoints futuros: sus
-controllers no existen todavía. El contrato OpenAPI publica solo las operaciones
+El listado público de apartamentos ya está implementado. Las reglas de administración
+de apartamentos, temporadas, tarifas y bloqueos se reservan para endpoints futuros. El contrato OpenAPI publica solo las operaciones
 implementadas. Las rutas no declaradas se deniegan por defecto; nuevos recursos
 con propietario (folios/perfil) necesitan su propio verificador antes de habilitarse.
 
@@ -65,14 +66,13 @@ firmados reales; comprueba login, hashes, registro, duplicados, inactividad,
 roles, canales, titular, token alterado y vencido. Crea sus propios datos de
 alojamiento y reserva sin depender de fechas fijas. Las claves de pruebas son
 exclusivas de pruebas. `docs/api/seguridad.http` permite repetir peticiones a mano.
-La aplicación existente no precarga apartamentos, temporadas ni políticas: para
-crear reservas manualmente se necesitan esos datos; las pruebas los preparan.
+El arranque normal carga dos apartamentos, sus tarifas y una política en H2. Las pruebas usan bases en memoria separadas del archivo local.
 
 ## Despliegue
 
 Activar `SPRING_PROFILES_ACTIVE=prod` y proporcionar `SGA_JWT_SECRET`. Este perfil
-cierra H2/Swagger y desactiva los usuarios de ejemplo. El aprovisionamiento de
-usuarios internos y de una base persistente debe realizarse para ese entorno.
+deshabilita la consola H2, Swagger y los usuarios de ejemplo. Consulte
+[Despliegue](despliegue.md) para configurar la cuenta inicial y CORS.
 Usar HTTPS. No hay refresh token: al vencer se inicia sesión de nuevo.
 
 Referencia técnica: https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html

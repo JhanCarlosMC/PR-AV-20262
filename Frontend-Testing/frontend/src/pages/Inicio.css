@@ -1,0 +1,228 @@
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/salento/instrument-serif.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html:has(.inicio-publico) { background: #f8f5ed; }
+
+body:has(.inicio-publico) {
+  max-width: 77rem;
+  padding-inline: clamp(0.9rem, 3.6vw, 2.8rem);
+}
+
+body:has(.inicio-publico) .encabezado {
+  border-color: #ded7c9;
+  min-height: 4.5rem;
+  margin-bottom: 1rem;
+}
+
+body:has(.inicio-publico) .marca {
+  color: #254337;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.inicio-publico {
+  --verde: #203e34;
+  --tinta: #24382e;
+  --crema: #fff8e7;
+  --ocre: #efcb8c;
+  --borde: #ded7c9;
+  --serif: 'Instrument Serif', Georgia, serif;
+  color: var(--tinta);
+}
+
+.marteja-portada {
+  display: grid;
+  grid-template-columns: minmax(0, 0.87fr) minmax(0, 1fr);
+  overflow: hidden;
+  border-radius: 0.45rem;
+  background: var(--verde);
+  color: var(--crema);
+}
+
+.marteja-presentacion {
+  align-self: center;
+  padding: clamp(1.8rem, 5vw, 4.3rem);
+}
+
+.marteja-lugar {
+  color: var(--ocre);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin: 0 0 1.4rem;
+  text-transform: uppercase;
+}
+
+.inicio-publico h1,
+.inicio-publico h2,
+.inicio-publico h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+.inicio-publico h1 {
+  font-size: clamp(3.75rem, 7.2vw, 7rem);
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.marteja-bajada {
+  max-width: 30ch;
+  color: #efe8d7;
+  margin: 1.6rem 0 1.7rem;
+}
+
+.marteja-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+}
+
+.marteja-boton {
+  display: inline-flex;
+  gap: 0.65rem;
+  align-items: center;
+  padding: 0.72rem 0.9rem;
+  border-radius: 0.25rem;
+  background: var(--ocre);
+  color: #26362d;
+  font-size: 0.9rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.marteja-boton:hover { background: #ffe2ab; color: #26362d; }
+.marteja-enlace-claro,
+.marteja-enlace-claro:hover { color: var(--crema); font-size: 0.9rem; text-underline-offset: 0.24em; }
+.marteja-presentacion :focus-visible { outline-color: var(--ocre); }
+
+.marteja-foto-portada,
+.marteja-ubicacion figure {
+  position: relative;
+  margin: 0;
+  background: #55664f;
+}
+
+.marteja-foto-portada { min-height: 30rem; }
+
+.marteja-foto-portada img,
+.marteja-ubicacion img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.marteja-foto-portada img { position: absolute; inset: 0; object-position: 61% 50%; }
+.marteja-foto-portada figcaption,
+.marteja-ubicacion figcaption {
+  position: absolute;
+  right: 0.9rem;
+  bottom: 0.9rem;
+  border-radius: 0.2rem;
+  padding: 0.28rem 0.55rem;
+  background: #203328;
+  color: #fff8e7;
+  font-size: 0.72rem;
+}
+
+.marteja-servicios {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0.8rem 0;
+  margin: 1rem 0 0;
+  list-style: none;
+  border-block: 1px solid var(--borde);
+}
+
+.marteja-servicios li { display: grid; gap: 0.2rem; padding: 0.45rem 1.2rem; }
+.marteja-servicios li + li { border-left: 1px solid var(--borde); }
+.marteja-servicios span { color: #4e5a50; font-size: 0.87rem; }
+
+.marteja-apartamentos { padding-block: clamp(2.6rem, 6vw, 5rem); }
+.marteja-encabezado-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin-bottom: 1.3rem;
+}
+
+.inicio-publico h2 { margin: 0; font-size: clamp(2.8rem, 5.3vw, 4.75rem); line-height: 0.98; }
+.marteja-encabezado-seccion p { margin: 0; max-width: 43ch; color: #4e5a50; }
+.marteja-tarjetas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+.marteja-alojamiento {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--borde);
+  border-top: 4px solid #738670;
+  border-radius: 0.35rem;
+  padding: clamp(1.15rem, 3.6vw, 2.1rem);
+  background: #fffdf7;
+}
+
+.marteja-alojamiento:nth-child(2) { border-top-color: #ad7457; }
+.marteja-capacidad {
+  margin: 0 0 0.7rem;
+  color: #536552;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.marteja-alojamiento h3 { margin: 0; font-size: clamp(2.1rem, 3.5vw, 3.15rem); line-height: 1; }
+.marteja-alojamiento h3 + p { max-width: 44ch; margin: 0.7rem 0 1.25rem; }
+.marteja-alojamiento a { margin-top: auto; align-self: flex-start; }
+.marteja-alojamiento a, .marteja-ubicacion a { font-weight: 650; text-underline-offset: 0.23em; }
+
+.marteja-ubicacion {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: 0.45rem;
+  background: #e9e7d9;
+}
+
+.marteja-ubicacion figure { min-height: 17rem; }
+.marteja-ubicacion img { position: absolute; inset: 0; }
+.marteja-ubicacion > div { align-self: center; padding: clamp(1.4rem, 4.5vw, 3.4rem); }
+.marteja-ubicacion h2 { font-size: clamp(2.6rem, 4vw, 3.9rem); }
+.marteja-ubicacion address { margin-bottom: 0.85rem; font-style: normal; font-weight: 700; }
+.marteja-creditos { margin-top: 1.6rem; color: #4e5a50; font-size: 0.75rem; }
+
+@media (max-width: 48rem) {
+  .marteja-portada, .marteja-ubicacion { grid-template-columns: minmax(0, 1fr); }
+  .marteja-foto-portada { min-height: clamp(14rem, 57vw, 23rem); }
+  .marteja-ubicacion figure { min-height: 14rem; }
+}
+
+@media (max-width: 32rem) {
+  .marteja-servicios, .marteja-tarjetas { grid-template-columns: minmax(0, 1fr); }
+  .marteja-servicios li { padding: 0.7rem 0.3rem; }
+  .marteja-servicios li + li { border-left: 0; border-top: 1px solid var(--borde); }
+  .marteja-presentacion { padding: 1.55rem; }
+}
+
+.marteja-detalle { max-width: 58rem; margin-inline: auto; }
+.marteja-detalle-portada {
+  margin: 0.9rem 0 1.35rem;
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  border-radius: 0.45rem;
+  background: var(--verde);
+  color: var(--crema);
+}
+.marteja-detalle h1 { max-width: 17ch; font-size: clamp(2.8rem, 6.4vw, 5.6rem); line-height: 0.95; }
+.marteja-detalle-portada > p:last-child { max-width: 55ch; margin-bottom: 0; }
+.marteja-detalle-datos { padding-block: 1rem; border-block: 1px solid var(--borde); }
+.marteja-detalle-servicios { margin-block: 1.5rem; }
+.marteja-detalle-servicios h2 { font-size: clamp(2.1rem, 4vw, 3rem); }
+.marteja-detalle-servicios ul { padding-inline-start: 1.25rem; }

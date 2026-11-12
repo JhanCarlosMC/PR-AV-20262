@@ -1,75 +1,37 @@
-# React + TypeScript + Vite
+# SGA · Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación React y Vite para iniciar sesión y gestionar reservas desde recepción o administración. La portada pública consulta el catálogo del backend. Cada apartamento tiene una ficha con los servicios del anuncio y un acceso al formulario de recepción.
 
-Currently, two official plugins are available:
+## Prueba local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Desde `sga/`, inicie Spring Boot con Java 25:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+SGA_JWT_SECRET="$(openssl rand -hex 32)" ./gradlew bootRun
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Spring Boot crea `sga/data/sgadb.mv.db` al iniciar y carga los datos base. Al reiniciar desde el mismo directorio, se conservan las reservas y los datos guardados.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Desde `Frontend-Testing/frontend/`, con Node 22.13 o superior de la rama 22:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm ci
+npm run dev
 ```
+
+Abra la URL que imprime Vite. El servidor de desarrollo reenvía `/api` a `localhost:8080`. Para otra URL del backend, copie `.env.example` a `.env.local` y edite `VITE_API_URL`.
+
+1. Ingrese con `recepcion@sga.local` y la contraseña de prueba `Recepcion2026`.
+2. Abra el detalle de `APT-301` (dos balcones) o `APT-302` (patio) desde el inicio y pulse **Crear reserva en recepción**. El formulario selecciona ese apartamento. Use fechas futuras, una hora estimada de llegada y al menos un ocupante con documento, nombre y fecha de nacimiento.
+3. Abra el detalle, confirme la reserva y compruebe que aparece al filtrar por **Confirmada**. Desde el detalle también puede cancelarla indicando el motivo.
+
+## Despliegue del frontend
+
+```sh
+npm ci
+VITE_API_URL=https://api.ejemplo.com/api npm run build
+```
+
+Publique `dist/` en un alojamiento estático. Configure el alojamiento para servir `index.html` en las rutas de navegación como `/reservas/nueva` y `/reservas/RES-2026-00001`, conservando la entrega normal de archivos estáticos. Si frontend y API comparten origen, puede omitir `VITE_API_URL` y dirigir `/api/*` a Spring Boot en el proxy. Con orígenes separados, configure `SGA_CORS_ALLOWED_ORIGINS` en el backend con el origen HTTPS del frontend.
+
+La variable `VITE_API_URL` se incorpora al compilar y es visible en el navegador. Consulte [el despliegue del backend](../../sga/docs/despliegue.md) para configurar el perfil, el secreto JWT y el acceso de prueba.

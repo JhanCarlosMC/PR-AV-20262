@@ -44,6 +44,15 @@ public class Apartamento {
         this.activo = true;
     }
 
+    public static Apartamento reconstruir(IdentificacionApartamento identificacion, String nombre,
+                                            int dormitorios, int capacidad, EstadoOperativo estadoOperativo,
+                                            boolean activo) {
+        var apartamento = new Apartamento(identificacion, nombre, dormitorios, capacidad);
+        apartamento.estadoOperativo = Objects.requireNonNull(estadoOperativo);
+        apartamento.activo = activo;
+        return apartamento;
+    }
+
     /** RN-02: la capacidad es un tope rígido, sin excepciones. Todos los ocupantes cuentan. */
     public boolean admite(int totalOcupantes) {
         return totalOcupantes <= capacidad;

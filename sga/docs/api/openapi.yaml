@@ -22,6 +22,27 @@ tags:
 
 paths:
 
+  /api/apartamentos:
+    get:
+      tags: [Apartamentos]
+      summary: Listar apartamentos activos
+      security: []
+      responses:
+        '200':
+          description: Catálogo público de apartamentos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [identificacion, nombre, dormitorios, capacidad]
+                  properties:
+                    identificacion: {type: string, example: APT-301}
+                    nombre: {type: string}
+                    dormitorios: {type: integer}
+                    capacidad: {type: integer}
+
   /api/auth/login:
     post:
       summary: Iniciar sesión

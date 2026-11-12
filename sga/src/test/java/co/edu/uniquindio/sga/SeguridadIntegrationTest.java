@@ -7,13 +7,13 @@ import co.edu.uniquindio.sga.infrastructure.persistence.jpa.UsuarioJpaDataReposi
 import co.edu.uniquindio.sga.infrastructure.security.JwtTokenProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import tools.jackson.databind.ObjectMapper;
 import java.net.URI;
 import java.net.http.*;
 import java.time.*;
-import java.math.BigDecimal;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,8 +27,7 @@ class SeguridadIntegrationTest {
     @Autowired UsuarioJpaDataRepository usuarios;
     @Autowired JwtTokenProvider tokens;
     @Autowired ApartamentoRepository apartamentos;
-    @Autowired co.edu.uniquindio.sga.infrastructure.persistence.inmemory.TemporadaRepositoryInMemory temporadas;
-    @Autowired co.edu.uniquindio.sga.infrastructure.persistence.inmemory.PoliticaCancelacionRepositoryInMemory politicas;
+    @Value("${sga.usuarios-iniciales.usuarios[0].correo}") String correoAdministrador;
     final HttpClient client = HttpClient.newHttpClient();
 
     HttpResponse<String> call(String method, String path, String body, String token) throws Exception {
@@ -69,18 +68,23 @@ class SeguridadIntegrationTest {
     @Test void rolesCanalesYPropietario() throws Exception {
         String h1=login("huesped1@sga.local","Huesped2026"), h2=login("huesped2@sga.local","Huesped2026");
         String recepcion=login("recepcion@sga.local","Recepcion2026"), servicio=login("servicio@sga.local","Servicio2026");
-        String admin=login("admin@sga.local","Admin2026");
+        String admin=login(correoAdministrador,"Admin2026");
         assertEquals(403,call("GET","/api/reservas?estado=PENDIENTE",null,h1).statusCode());
         assertEquals(200,call("GET","/api/reservas?estado=PENDIENTE",null,admin).statusCode());
         assertEquals(404,call("GET","/api/reservas/RES-NO-EXISTE",null,recepcion).statusCode());
         assertEquals(403,call("GET","/api/reservas/RES-NO-EXISTE",null,h1).statusCode());
-        var hoy=LocalDate.now(); var base=new IdTemporada("SEGURIDAD");
-        temporadas.guardar(new Temporada(base,"Base",new Periodo(hoy,hoy.plusYears(1)),true));
-        var apt=new Apartamento(new IdentificacionApartamento("APT-SEC"),"Pruebas",2,4);
-        apt.definirTarifa(new Tarifa(base,new Dinero(new BigDecimal("200000")))); apartamentos.guardar(apt);
-        politicas.guardar(new PoliticaCancelacion(new VersionPolitica(1,hoy),List.of(new TramoRetencion(0,new Porcentaje(new BigDecimal("50"))), new TramoRetencion(72,new Porcentaje(BigDecimal.ZERO))),new Porcentaje(new BigDecimal("100"))));
+        var hoy = LocalDate.now();
+        var desactivado = new Apartamento(new IdentificacionApartamento("APT-BAJA"), "Inactivo", 2, 4);
+        desactivado.desactivar();
+        apartamentos.guardar(desactivado);
+        var catalogo = call("GET", "/api/apartamentos", null, null);
+        assertEquals(200, catalogo.statusCode(), catalogo.body());
+        var publicados = json.readTree(catalogo.body());
+        assertEquals(2, publicados.size());
+        assertEquals("APT-301", publicados.get(0).get("identificacion").asText());
+        assertEquals("APT-302", publicados.get(1).get("identificacion").asText());
         String body="""
-            {"identificacionApartamento":"APT-SEC","fechaEntrada":"%s","fechaSalida":"%s","canalOrigen":"PORTAL","horaEstimadaLlegada":"16:00","titular":{"documento":"1094000111","nombre":"Laura","fechaNacimiento":"1995-01-30"},"ocupantes":[{"documento":"1094000111","nombre":"Laura","fechaNacimiento":"1995-01-30"}]}
+            {"identificacionApartamento":"APT-301","fechaEntrada":"%s","fechaSalida":"%s","canalOrigen":"PORTAL","horaEstimadaLlegada":"16:00","titular":{"documento":"1094000111","nombre":"Laura","fechaNacimiento":"1995-01-30"},"ocupantes":[{"documento":"1094000111","nombre":"Laura","fechaNacimiento":"1995-01-30"}]}
             """.formatted(hoy.plusDays(10),hoy.plusDays(12));
         assertEquals(403,call("POST","/api/reservas",body,h2).statusCode());
         assertEquals(403,call("POST","/api/reservas",body.replace("PORTAL","DIRECTO"),h1).statusCode());
