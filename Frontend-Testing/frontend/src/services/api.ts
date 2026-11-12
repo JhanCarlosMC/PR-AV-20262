@@ -3,7 +3,7 @@ import { borrarSesion, EVENTO_SESION_EXPIRADA, leerSesion } from './sesion';
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL?.trim() || '/api',
-  timeout: 60_000,
+  timeout: 10_000,
 });
 
 api.interceptors.request.use((config) => {
