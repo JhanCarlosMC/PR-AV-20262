@@ -1,0 +1,14 @@
+# Compilaciones locales: el contenedor compila desde cero.
+build/
+# Caché de Gradle local (cientos de MB, inútil dentro del contenedor).
+.gradle/
+# Configuración de los IDE.
+.idea/
+.vscode/
+*.iml
+HELP.md
+# LA LÍNEA CLAVE: la base H2 local (sga/data/sgadb.mv.db) con las reservas
+# de prueba. Sin esta línea entra a la imagen y es el estado inicial en Render.
+data/
+# El secreto local nunca entra a una imagen.
+src/main/resources/application-secrets.properties
