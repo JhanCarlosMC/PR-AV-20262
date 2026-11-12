@@ -9,6 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@hookform/resolvers": "^7.0.5",
     "axios": "^1.21.0",
