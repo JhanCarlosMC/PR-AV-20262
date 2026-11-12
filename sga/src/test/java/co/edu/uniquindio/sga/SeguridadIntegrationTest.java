@@ -101,4 +101,47 @@ class SeguridadIntegrationTest {
         assertEquals(403,call("PUT",path+"/cancelar","{\"motivo\":\"Cambio de planes\"}",h2).statusCode());
         assertEquals(200,call("PUT",path+"/cancelar","{\"motivo\":\"Cambio de planes\"}",h1).statusCode());
     }
+
+    @Test
+    void horaOpcionalAlCrearYConsultarReservas() throws Exception {
+        String recepcion = login("recepcion@sga.local", "Recepcion2026");
+        var hoy = LocalDate.now();
+        String solicitud = """
+                {
+                  "identificacionApartamento": "APT-302",
+                  "fechaEntrada": "%s",
+                  "fechaSalida": "%s",
+                  "canalOrigen": "DIRECTO",
+                  "horaEstimadaLlegada": %s,
+                  "titular": {"documento":"99000002","nombre":"Persona de prueba","fechaNacimiento":"1990-01-01"},
+                  "ocupantes": [{"documento":"99000002","nombre":"Persona de prueba","fechaNacimiento":"1990-01-01"}]
+                }
+                """;
+
+        var sinHora = call("POST", "/api/reservas",
+                solicitud.formatted(hoy.plusDays(20), hoy.plusDays(22), "null"), recepcion);
+        assertEquals(201, sinHora.statusCode(), sinHora.body());
+        String rutaSinHora = URI.create(sinHora.headers().firstValue("Location").orElseThrow()).getPath();
+
+        var conHora = call("POST", "/api/reservas",
+                solicitud.formatted(hoy.plusDays(25), hoy.plusDays(27), "\"16:30\""), recepcion);
+        assertEquals(201, conHora.statusCode(), conHora.body());
+        String rutaConHora = URI.create(conHora.headers().firstValue("Location").orElseThrow()).getPath();
+
+        var detalleSinHora = call("GET", rutaSinHora, null, recepcion);
+        assertEquals(200, detalleSinHora.statusCode(), detalleSinHora.body());
+        assertTrue(json.readTree(detalleSinHora.body()).path("horaEstimadaLlegada").isNull());
+
+        var detalleConHora = call("GET", rutaConHora, null, recepcion);
+        assertEquals(200, detalleConHora.statusCode(), detalleConHora.body());
+        assertEquals(LocalTime.of(16, 30),
+                LocalTime.parse(json.readTree(detalleConHora.body()).path("horaEstimadaLlegada").asText()));
+
+        var pendientes = call("GET", "/api/reservas?estado=PENDIENTE", null, recepcion);
+        assertEquals(200, pendientes.statusCode(), pendientes.body());
+        assertEquals(409, call("PUT", rutaSinHora + "/confirmar", null, recepcion).statusCode());
+        assertEquals(200, call("PUT", rutaConHora + "/confirmar", null, recepcion).statusCode());
+        assertEquals(200, call("PUT", rutaSinHora + "/cancelar",
+                "{\"motivo\":\"Cancelación de prueba\"}", recepcion).statusCode());
+    }
 }

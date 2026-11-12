@@ -50,7 +50,8 @@ public interface ReservaPersistenceMapper {
                 .orElseThrow(() ->
                         new IllegalStateException("El titular no esta dentro de los ocupantes de la reserva"));
 
-        //Realizar la reconstruccion de la reserva
+        // La hora puede estar ausente en una reserva pendiente.
+        var hora = reservaEntity.getHoraEstimadaLlegada();
         return Reserva.recontruir(
                 new CodigoReserva(reservaEntity.getCodigo()),
                 new IdentificacionApartamento(reservaEntity.getApartamentoId()),
@@ -58,7 +59,7 @@ public interface ReservaPersistenceMapper {
                 reservaEntity.getEstado(),
                 reservaEntity.getCanalOrigen(),
                 titular, ocupantes,
-                new HoraEstimadaLlegada(reservaEntity.getHoraEstimadaLlegada()),
+                hora == null ? null : new HoraEstimadaLlegada(hora),
                 new Dinero(reservaEntity.getValorCongelado()),
                 new VersionPolitica(reservaEntity.getPoliticaCongelada().numero(), reservaEntity.getPoliticaCongelada().vigenteDesde()),
                 reservaEntity.getFechaCreacion(),
